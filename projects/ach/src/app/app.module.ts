@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
+import { MaterialModule } from './material-module';
 import { AchModule } from './pages/ach-home.module';
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AchModule } from './pages/ach-home.module';
   imports: [
     BrowserModule,
     RouterModule.forRoot(APP_ROUTES),    
-    AchModule
+    AchModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -30,9 +30,10 @@ module.exports = {
            //'./Module': './projects/ach/src/app/flights/flights.module.ts',
         },               
         shared: {            
-            '@angular/core': { singleton: true },
-            "@angular/common": { singleton: true },
-            "@angular/router": { singleton: true },
+            '@angular/core': { singleton: true, strictVersion: true, requiredVersion: '>=12.0.0'  },
+            "@angular/common": { singleton: true, strictVersion: true, requiredVersion: '>=12.0.0'  },
+            "@angular/router": { singleton: true, strictVersion: true, requiredVersion: '>=12.0.0'  },
+            "@angular/material": { singleton: true, strictVersion: true, requiredVersion: '>=12.0.0'  },
              
             ...sharedMappings.getDescriptors()
           },
