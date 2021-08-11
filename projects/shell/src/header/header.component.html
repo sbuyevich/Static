@@ -3,6 +3,7 @@
       <img src="/assets/img/logo.svg" alt="image">    
   </div>     
   <div class="login">
-      <button mat-button routerLink="login">LOG IN</button>    
+    <button mat-button *ngIf="!loginDisplay" (click)="login()">LOG IN</button>
+    <button mat-button *ngIf="loginDisplay" (click)="logout()">LOG OUT</button>    
   </div>     
 </header>

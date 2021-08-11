@@ -26,8 +26,7 @@ module.exports = {
         name: "ach",      
         filename: "remoteEntry.js",
         exposes: {
-            './Module': './projects/ach/src/app/pages/ach-home.module.ts',
-           //'./Module': './projects/ach/src/app/flights/flights.module.ts',
+            './Module': './projects/ach/src/app/pages/ach-home.module.ts',           
         },               
         shared: {            
             '@angular/core': { singleton: true, strictVersion: true, requiredVersion: '>=12.0.0'  },
