@@ -4,8 +4,8 @@
   </div>      
   
   <div class="login">    
-    <span *ngIf="loginDisplay" style="font-size: small;">
-      You are logged in as <b>{{account.username}}</b> with  <b>{{idTokenClaims.roles}} </b>role</span>
+   <span *ngIf="loginDisplay" style="font-size: small;">
+      You are logged in as <b>{{user.username}}</b> with  <b>{{user.roles}} </b>role</span>
     <button mat-button *ngIf="!loginDisplay" (click)="login()">LOG IN</button>
     <button mat-button *ngIf="loginDisplay" (click)="logout()">LOG OUT</button>    
   </div>       

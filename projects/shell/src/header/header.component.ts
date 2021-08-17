@@ -4,11 +4,8 @@ import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfigur
 import { AccountInfo, AuthenticationResult, InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { AuthService, User } from '../app/auth-service';
 
-type IdTokenClaims = {
-  preferred_username: string,
-  roles: []
-}
 
 @Component({
   selector: 'app-header',
@@ -16,52 +13,27 @@ type IdTokenClaims = {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  account?: AccountInfo;  
-  idTokenClaims?: IdTokenClaims;
-  loginDisplay = false;
-
-  private readonly _destroying$ = new Subject<void>();
+  user?: User;
+  loginDisplay = false; 
 
   constructor(//@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, 
-  private http: HttpClient,
-  private broadcastService: MsalBroadcastService, 
-  private authService: MsalService) { }
+  private authService: AuthService) { }
 
-  ngOnInit() {    
-
-    this.broadcastService.inProgress$
-    .pipe(
-      filter((status: InteractionStatus) => status === InteractionStatus.None),
-      takeUntil(this._destroying$)
-    )
-    .subscribe(() => {
-      this.setLoginDisplay();
-    })
+  ngOnInit() {   
+    this.authService.user$.subscribe((user) => this.setLoginDisplay(user));    
   }
 
   login() {
-    this.authService.loginRedirect();  
+    this.authService.login();      
   }
 
   logout() { // Add log out function here
-    this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:5555'
-    });
+    this.authService.logout()    
   }
 
-  setLoginDisplay() {    
-    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    if(this.loginDisplay){
-      this.account = this.authService.instance.getAllAccounts()[0];
-      this.idTokenClaims = this.account.idTokenClaims as IdTokenClaims;
-      console.log("idTokenClaims", this.idTokenClaims.preferred_username);
-      console.log("roles", this.idTokenClaims.roles);    
-    }
-  }
-
-  ngOnDestroy(): void {
-    this._destroying$.next(undefined);
-    this._destroying$.complete();
+  setLoginDisplay(user: User){
+    this.user = user;    
+    this.loginDisplay = user != null;
   }
 
 }

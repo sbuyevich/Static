@@ -40,35 +40,6 @@ const publicClientApp = new PublicClientApplication({
   }
 });
 
-// @NgModule({
-//   imports: [
-//     MsalModule
-//   ],
-//   providers: [
-//     {
-//       provide: HTTP_INTERCEPTORS,
-//       useClass: MsalInterceptor,
-//       multi: true
-//     },
-//     {
-//       provide: MSAL_INSTANCE,
-//       useFactory: MSALInstanceFactory
-//     },
-//     {
-//       provide: MSAL_GUARD_CONFIG,
-//       useFactory: MSALGuardConfigFactory
-//     },
-//     {
-//       provide: MSAL_INTERCEPTOR_CONFIG,
-//       useFactory: MSALInterceptorConfigFactory
-//     },
-//     MsalGuard,
-//     MsalBroadcastService,
-//     MsalService
-//   ],
-//   bootstrap: [AppComponent, MsalRedirectComponent]
-// })
-
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
