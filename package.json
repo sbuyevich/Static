@@ -6,7 +6,7 @@
     "start": "npm run start:shell",
     "start:shell": "ng serve shell  -o --port 5555",
     "start:ach": "ng serve ach -o --port 3333",
-    "start:all": "concurrently \"npm run start:shell\" \"npm run start:ach\" ",
+    "start:all": " npm run start:shell npm run start:ach",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

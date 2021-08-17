@@ -1,8 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MsalModule, MsalRedirectComponent, MsalGuard, MsalInterceptorConfiguration } from '@azure/msal-angular'; // MsalGuard added to imports
-import { PublicClientApplication, InteractionType } from '@azure/msal-browser'; // InteractionType added to imports
+import {
+  MsalModule,
+  MsalService,
+  MsalInterceptor,  
+  MsalGuard,  
+  MsalBroadcastService, 
+  MsalRedirectComponent,
+  MSAL_INSTANCE,
+  MSAL_GUARD_CONFIG,
+  MSAL_INTERCEPTOR_CONFIG,  
+  MsalInterceptorConfiguration
+} from "@azure/msal-angular";
+
+//import { MsalModule, MsalRedirectComponent, MsalGuard, MsalInterceptorConfiguration, MsalInterceptor, MSAL_INSTANCE, MSAL_GUARD_CONFIG, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular'; // MsalGuard added to imports
+import { PublicClientApplication, InteractionType, IPublicClientApplication } from '@azure/msal-browser'; // InteractionType added to imports
 
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
@@ -11,23 +24,60 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { AsideComponent } from '../aside/aside.component';
 import { MaterialModule } from '../material-module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;// set to true for IE 11
 
 const publicClientApp = new PublicClientApplication({
   auth: {
-    clientId: '91b33e37-3bce-447a-aaec-b6d35fc032e6',
-    authority: 'https://login.microsoftonline.com/1a72c925-10ca-4b83-9f16-161e2ae1e200', 
-    redirectUri: 'http://localhost:4200/'
-    // clientId: 'f84871ee-ad13-4423-bcff-5673258e3815',
-    // authority: 'https://login.microsoftonline.com/1a72c925-10ca-4b83-9f16-161e2ae1e200', 
-    // redirectUri: 'http://localhost:4200/'
+    clientId: '20401f56-be3e-49c8-9a01-24151837dedb',
+    authority: 'https://login.microsoftonline.com/82e1281a-0c2a-42ab-8394-0a68a0be66d0', 
+    redirectUri: 'http://localhost:5555/'
   },
   cache: {
     cacheLocation: 'localStorage',
     storeAuthStateInCookie: isIE,
   }
 });
+
+// @NgModule({
+//   imports: [
+//     MsalModule
+//   ],
+//   providers: [
+//     {
+//       provide: HTTP_INTERCEPTORS,
+//       useClass: MsalInterceptor,
+//       multi: true
+//     },
+//     {
+//       provide: MSAL_INSTANCE,
+//       useFactory: MSALInstanceFactory
+//     },
+//     {
+//       provide: MSAL_GUARD_CONFIG,
+//       useFactory: MSALGuardConfigFactory
+//     },
+//     {
+//       provide: MSAL_INTERCEPTOR_CONFIG,
+//       useFactory: MSALInterceptorConfigFactory
+//     },
+//     MsalGuard,
+//     MsalBroadcastService,
+//     MsalService
+//   ],
+//   bootstrap: [AppComponent, MsalRedirectComponent]
+// })
+
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: '20401f56-be3e-49c8-9a01-24151837dedb',
+      authority: 'https://login.microsoftonline.com/82e1281a-0c2a-42ab-8394-0a68a0be66d0', 
+      redirectUri: 'http://localhost:5555'
+    }
+  });
+}
 
 @NgModule({
   declarations: [
@@ -40,17 +90,17 @@ const publicClientApp = new PublicClientApplication({
     BrowserModule,    
     RouterModule.forRoot(APP_ROUTES),
     ModuleFederationToolsModule,
+    HttpClientModule,
     MaterialModule,
     MsalModule.forRoot( publicClientApp, 
     {
-        interactionType: InteractionType.Redirect, // MSAL Guard Configuration
-        authRequest: {
-          scopes: ['user.read']
-        }
+        interactionType: InteractionType.Redirect, // MSAL Guard Configuration     
     }, 
     null as any)
   ],
-  providers: [ MsalGuard ], // MsalGuard added as provider here],
+  providers: [ 
+    MsalGuard 
+  ], 
   bootstrap: [AppComponent, MsalRedirectComponent]
 })
 

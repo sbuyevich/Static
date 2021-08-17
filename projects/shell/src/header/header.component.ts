@@ -1,9 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
-import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
+import { AccountInfo, AuthenticationResult, InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+type IdTokenClaims = {
+  preferred_username: string,
+  roles: []
+}
 
 @Component({
   selector: 'app-header',
@@ -11,14 +16,18 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isIframe = false;
+  account?: AccountInfo;  
+  idTokenClaims?: IdTokenClaims;
   loginDisplay = false;
+
   private readonly _destroying$ = new Subject<void>();
 
-  constructor(@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private broadcastService: MsalBroadcastService, private authService: MsalService) { }
+  constructor(//@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, 
+  private http: HttpClient,
+  private broadcastService: MsalBroadcastService, 
+  private authService: MsalService) { }
 
-  ngOnInit() {
-    this.isIframe = window !== window.parent && !window.opener;
+  ngOnInit() {    
 
     this.broadcastService.inProgress$
     .pipe(
@@ -31,21 +40,23 @@ export class HeaderComponent implements OnInit {
   }
 
   login() {
-    if (this.msalGuardConfig.authRequest){
-      this.authService.loginRedirect({...this.msalGuardConfig.authRequest} as RedirectRequest);
-    } else {
-      this.authService.loginRedirect();
-    }
+    this.authService.loginRedirect();  
   }
 
   logout() { // Add log out function here
     this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:4200'
+      postLogoutRedirectUri: 'http://localhost:5555'
     });
   }
 
-  setLoginDisplay() {
+  setLoginDisplay() {    
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+    if(this.loginDisplay){
+      this.account = this.authService.instance.getAllAccounts()[0];
+      this.idTokenClaims = this.account.idTokenClaims as IdTokenClaims;
+      console.log("idTokenClaims", this.idTokenClaims.preferred_username);
+      console.log("roles", this.idTokenClaims.roles);    
+    }
   }
 
   ngOnDestroy(): void {

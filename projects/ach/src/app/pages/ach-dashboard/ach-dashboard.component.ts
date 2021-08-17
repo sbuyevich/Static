@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 
 
-export class AchDashboardComponent  {
+export class AchDashboardComponent {
 
-  constructor() {
+  constructor(private http: HttpClient) {
+  }
+
+  apiCallGet() {
+    this.http.get('https://localhost:5001/Ach/Get').subscribe(data => {
+      console.log(data);
+    });
+    // this.http.get('https://localhost:5001/Ach/Get').subscribe(data => {
+    //   console.log(data);
+    // });
+  }
+  apiCallSet() {
+    // this.http.get('https://localhost:5001/WeatherForecast/set').subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
 }

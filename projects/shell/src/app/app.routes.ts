@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { loadRemoteModule } from '@angular-architects/module-federation';
 import { WebComponentWrapper, WebComponentWrapperOptions } from '@angular-architects/module-federation-tools';
+import { MsalGuard } from '@azure/msal-angular';
 
-
-let URL = 'http://localhost:3333/remoteEntry.js';
 
 export const APP_ROUTES: Routes = [   
   {
@@ -17,7 +16,8 @@ export const APP_ROUTES: Routes = [
         exposedModule: './Module'
       })
       .then(m => m.AchModule) 
-    }      
+    },      
+    canActivate: [MsalGuard]
   }  
 ];
 
