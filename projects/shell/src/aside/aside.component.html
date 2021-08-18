@@ -1,6 +1,6 @@
 <aside>
     <ul>
         <li><a routerLink="">Home</a></li>
-        <li><a routerLink="ach">ACH</a></li>
+        <li *ngIf="hasAchAccess"><a routerLink="ach">ACH</a></li>
     </ul>
 </aside>

@@ -25,6 +25,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { AsideComponent } from '../aside/aside.component';
 import { MaterialModule } from '../material-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthService } from './auth-service';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;// set to true for IE 11
 
@@ -70,7 +71,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     null as any)
   ],
   providers: [ 
-    MsalGuard 
+    MsalGuard,
+    AuthService 
   ], 
   bootstrap: [AppComponent, MsalRedirectComponent]
 })

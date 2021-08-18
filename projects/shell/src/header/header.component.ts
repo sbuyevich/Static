@@ -16,8 +16,7 @@ export class HeaderComponent implements OnInit {
   user?: User;
   loginDisplay = false; 
 
-  constructor(//@Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, 
-  private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {   
     this.authService.user$.subscribe((user) => this.setLoginDisplay(user));    

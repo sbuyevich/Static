@@ -7,7 +7,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 export class User {
     name?: string;
     username?: string;
-    roles?: [];
+    roles?: string [];
 }
 
 type IdTokenClaims = {
@@ -15,9 +15,8 @@ type IdTokenClaims = {
     roles: []
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({  providedIn: 'root' })
+
 export class AuthService implements OnDestroy {        
     user?: User;
     loginDisplay = false;
@@ -57,9 +56,14 @@ export class AuthService implements OnDestroy {
             this.user.name = account.name;
             this.user.username = account.username;
             const idTokenClaims = account.idTokenClaims as IdTokenClaims;
-            this.user.roles = idTokenClaims.roles          
+            this.user.roles = idTokenClaims.roles; 
         }     
         this.dataSource.next(this.user as User);
+    }
+
+    hasRole(role: string){
+        return this.user != null &&  this.user.roles != null &&
+        this.user.roles.filter((r) => r.includes(role)).length > 0;
     }
 
     ngOnDestroy(): void {
