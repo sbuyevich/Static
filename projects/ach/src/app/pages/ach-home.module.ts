@@ -27,7 +27,7 @@ const publicClientApp = new PublicClientApplication({
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();   
   protectedResourceMap.set('https://localhost:5001/Ach/Get', ['api://7269ef6e-d77b-40e8-90c7-2f127151e1f7/ach.read']);
-  protectedResourceMap.set('https://localhost:5001/WeatherForecast/Set', ['api://7269ef6e-d77b-40e8-90c7-2f127151e1f7/ach.write']);
+  protectedResourceMap.set('https://localhost:5001/Ach/Set', ['api://7269ef6e-d77b-40e8-90c7-2f127151e1f7/ach.write']);
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap

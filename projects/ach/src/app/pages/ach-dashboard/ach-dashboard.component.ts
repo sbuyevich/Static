@@ -10,21 +10,21 @@ import { Component, OnInit } from '@angular/core';
 
 export class AchDashboardComponent {
 
+  apiResponse?: string;
   constructor(private http: HttpClient) {
   }
 
   apiCallGet() {
     this.http.get('https://localhost:5001/Ach/Get').subscribe(data => {
       console.log(data);
-    });
-    // this.http.get('https://localhost:5001/Ach/Get').subscribe(data => {
-    //   console.log(data);
-    // });
+      this.apiResponse = JSON.stringify(data);
+    });   
   }
   apiCallSet() {
-    // this.http.get('https://localhost:5001/WeatherForecast/set').subscribe(data => {
-    //   console.log(data);
-    // });
+    this.http.get('https://localhost:5001/Ach/Set').subscribe(data => {
+      console.log(data);
+      this.apiResponse = JSON.stringify(data);
+    });
   }
 
 }
