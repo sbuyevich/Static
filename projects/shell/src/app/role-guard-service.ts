@@ -5,7 +5,6 @@ import {
   CanActivate,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { ProvidePlugin } from 'webpack';
 import { AuthService } from './auth-service';
 
 

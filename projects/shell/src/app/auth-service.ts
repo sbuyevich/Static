@@ -4,6 +4,8 @@ import { AccountInfo, InteractionStatus } from '@azure/msal-browser';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+import { environment } from './../environments/environment';
+
 export class User {
     name?: string;
     username?: string;
@@ -44,7 +46,7 @@ export class AuthService implements OnDestroy {
 
     logout() {
         this.msalService.logoutRedirect({
-            postLogoutRedirectUri: 'http://localhost:5555'
+            postLogoutRedirectUri: environment.achURL
         });
     }
 
@@ -61,9 +63,7 @@ export class AuthService implements OnDestroy {
         this.dataSource.next(this.user as User);
     }
 
-    hasRole(role: string){        
-        console.log(role);
-        console.log(this.user);
+    hasRole(role: string){  
         return this.user != null &&  this.user.roles != null &&
         this.user.roles.filter((r) => r.includes(role)).length > 0;
     }

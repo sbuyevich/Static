@@ -5,6 +5,7 @@ import { AccountInfo, AuthenticationResult, InteractionStatus, RedirectRequest }
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { AuthService, User } from '../app/auth-service';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -14,24 +15,24 @@ import { AuthService, User } from '../app/auth-service';
 })
 export class HeaderComponent implements OnInit {
   user?: User;
-  loginDisplay = false; 
+  loginDisplay = false;
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {   
-    this.authService.user$.subscribe((user) => this.setLoginDisplay(user));    
+  ngOnInit() {
+    this.authService.user$.subscribe((user) => this.setLoginDisplay(user));
   }
 
-  login() {
-    this.authService.login();      
+  login() {    
+    this.authService.login();
   }
 
   logout() { // Add log out function here
-    this.authService.logout()    
+    this.authService.logout()
   }
 
-  setLoginDisplay(user: User){
-    this.user = user;    
+  setLoginDisplay(user: User) {
+    this.user = user;
     this.loginDisplay = user != null;
   }
 

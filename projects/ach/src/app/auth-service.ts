@@ -32,8 +32,7 @@ export class AuthService implements OnDestroy {
         this.setLoginDisplay();        
     }
 
-    setLoginDisplay() {      
-        console.log("setLoginDisplay");
+    setLoginDisplay() {              
         this.loginDisplay = this.msalService.instance.getAllAccounts().length > 0;
         if (this.loginDisplay) {
             this.user = new User();

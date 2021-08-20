@@ -1,9 +1,8 @@
 import { loadRemoteEntry } from '@angular-architects/module-federation';
-
-//import('./bootstrap');
+import { environment } from './environments/environment';
 
 Promise.all([
-   loadRemoteEntry('http://localhost:3333/remoteEntry.js', 'ach')
+   loadRemoteEntry(environment.achURL +  'remoteEntry.js', 'ach')
 ])
 .catch(err => console.error('Error loading remote entries', err))
 .then(() => import('./bootstrap'))

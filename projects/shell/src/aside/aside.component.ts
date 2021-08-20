@@ -12,9 +12,6 @@ export class AsideComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => this.hasAchAccess = this.authService.hasRole("ach."));
-    // this.hasAchAccess = user.roles != null &&  
-    // user.roles.filter((r) => r.includes("ach.")).length > 0);  
+    this.authService.user$.subscribe((user) => this.hasAchAccess = this.authService.hasRole("ach."));       
   }
-
 }
