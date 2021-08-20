@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'projects/ach/src/app/auth-service';
 
 @Component({
   selector: 'app-ach-dashboard',
@@ -8,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 
-export class AchDashboardComponent {
+export class AchDashboardComponent implements OnInit {
 
+  isAdmin = false;
   apiResponse?: string;
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private authService: AuthService) {
+   
+  }
+  ngOnInit(): void {
+    this.isAdmin = this.authService.hasRole("ach.write");
   }
 
   apiCallGet() {

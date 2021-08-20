@@ -27,28 +27,13 @@ export class AuthService implements OnDestroy {
 
     constructor(
         private broadcastService: MsalBroadcastService,
-        private msalService: MsalService) {        
-        this.broadcastService.inProgress$
-            .pipe(
-                filter((status: InteractionStatus) => status === InteractionStatus.None),
-                takeUntil(this._destroying$)
-            )
-            .subscribe(() => {
-                this.setLoginDisplay();
-            })
+        private msalService: MsalService) {    
+        console.log("broadcastService");         
+        this.setLoginDisplay();        
     }
 
-    login() {
-        this.msalService.loginRedirect();        
-    }
-
-    logout() {
-        this.msalService.logoutRedirect({
-            postLogoutRedirectUri: 'http://localhost:5555'
-        });
-    }
-
-    setLoginDisplay() {       
+    setLoginDisplay() {      
+        console.log("setLoginDisplay");
         this.loginDisplay = this.msalService.instance.getAllAccounts().length > 0;
         if (this.loginDisplay) {
             this.user = new User();

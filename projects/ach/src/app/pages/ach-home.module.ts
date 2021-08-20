@@ -9,6 +9,7 @@ import { AchHomeComponent, AchDashboardComponent, AchListComponent, AchSearchCom
 import { AchNavComponent } from '../components';
 import { MaterialModule } from '../material-module';
 import { MsalGuard, MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
+import { AuthService } from 'projects/ach/src/app/auth-service';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;// set to true for IE 11
 
@@ -63,7 +64,8 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     provide: MSAL_INTERCEPTOR_CONFIG,
     useFactory: MSALInterceptorConfigFactory
   },
-  MsalGuard 
+  MsalGuard,
+  AuthService
 ], // MsalGuard added as provider here],],      }
 })
 export class AchModule { }

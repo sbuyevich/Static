@@ -1,0 +1,18 @@
+Create container for shell app
+1. Build app to create dist/ folder
+1. Change to "shell" in "COPY /dist/shell /usr/share/nginx/html" of Dockerfile
+3. Run to create image 
+    docker build -t shell .
+4. Create container
+docker run --publish 5555:80 --name shell-app shell 
+
+Create container for ach app
+1. Build app to create dist/ folder
+1. Change to "ach" in "COPY /dist/ach /usr/share/nginx/html" of Dockerfile
+3. Run to create image 
+    docker build -t ach .
+4. Create container
+docker run --publish 5555:80 --name ach-app ach 
+
+
+
