@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ach-search',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AchSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor( private titleService: Title, 
+    private route: ActivatedRoute,) { }
 
   ngOnInit() {
+    this.route.data.subscribe(d => this.titleService.setTitle(d.title));
   }
 
 }

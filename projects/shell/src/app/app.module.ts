@@ -50,7 +50,7 @@ const publicClientApp = new PublicClientApplication({
     MaterialModule,
     MsalModule.forRoot( publicClientApp, 
     {
-        interactionType: InteractionType.Redirect, // MSAL Guard Configuration     
+        interactionType: InteractionType.Popup, // MSAL Guard Configuration     
     }, 
     null as any)
   ],
