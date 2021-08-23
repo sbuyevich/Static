@@ -12,13 +12,12 @@ import { PublicClientApplication, InteractionType, IPublicClientApplication } fr
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
 import { ModuleFederationToolsModule } from '@angular-architects/module-federation-tools';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
-import { AsideComponent } from '../aside/aside.component';
 import { MaterialModule } from '../material-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth-service';
+
 import { environment } from '../environments/environment';
+import { HomeComponent, FooterComponent, HeaderComponent, AsideComponent } from '../components';
 
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;// set to true for IE 11
@@ -36,12 +35,13 @@ const publicClientApp = new PublicClientApplication({
 });
 
 @NgModule({
-  declarations: [
+  declarations: [		
     AppComponent,    
     HeaderComponent,    
     FooterComponent,
-    AsideComponent
-  ],
+    AsideComponent,    
+    HomeComponent
+   ],
   imports: [
     BrowserModule,    
     RouterModule.forRoot(APP_ROUTES),

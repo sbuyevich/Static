@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { WebComponentWrapper, WebComponentWrapperOptions } from '@angular-architects/module-federation-tools';
-import { MsalGuard } from '@azure/msal-angular';
 import { RoleGuardService } from './role-guard-service';
+import { HomeComponent } from '../components/home/home.component';
 
 
 export const APP_ROUTES: Routes = [   
@@ -19,8 +18,9 @@ export const APP_ROUTES: Routes = [
     },      
     canActivate: [RoleGuardService],
     data: { 
-      expectedRole: 'ach.'
+      expectedRole: 'ach.'     
     } 
-  }  
+  },
+  { path: '', component: HomeComponent, data: {title: 'ACH'} },
 ];
 

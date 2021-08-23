@@ -4,8 +4,8 @@ import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfigur
 import { AccountInfo, AuthenticationResult, InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { AuthService, User } from '../app/auth-service';
-import { environment } from '../environments/environment';
+import { AuthService, User } from '../../app/auth-service';
+import { environment } from '../../environments/environment';
 
 
 @Component({

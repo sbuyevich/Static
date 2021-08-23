@@ -20,7 +20,7 @@ type IdTokenClaims = {
 @Injectable({  providedIn: 'root' })
 
 export class AuthService implements OnDestroy {        
-    user?: User;
+    user?: User | null;
     loginDisplay = false;
     private readonly _destroying$ = new Subject<void>();
 
@@ -46,11 +46,12 @@ export class AuthService implements OnDestroy {
 
     logout() {
         this.msalService.logoutRedirect({
-            postLogoutRedirectUri: environment.achURL
+            postLogoutRedirectUri: environment.shellURL
         });
     }
 
     setLoginDisplay() {       
+        this.user = null;
         this.loginDisplay = this.msalService.instance.getAllAccounts().length > 0;
         if (this.loginDisplay) {
             this.user = new User();

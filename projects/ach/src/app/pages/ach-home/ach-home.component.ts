@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ach-home',
@@ -8,10 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AchHomeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private  titleService: Title, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe(d => console.log(d));
+    this.route.data.subscribe(d => this.titleService.setTitle(d.title));    
   }
 
 }

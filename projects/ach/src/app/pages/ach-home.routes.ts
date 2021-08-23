@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AchDashboardComponent, AchListComponent, AchSearchComponent,AchHomeComponent } from './';
 
 export const ACH_ROUTES: Routes = [
-  { path: '', component: AchHomeComponent },
-  { path: 'dashboard', component: AchDashboardComponent },
-  { path: 'search', component: AchSearchComponent },
-  { path: 'list', component: AchListComponent }
+  { path: '', component: AchHomeComponent, data: {title: 'ACH'} },
+  { path: 'dashboard', component: AchDashboardComponent, data: {title: 'ACH-Dashboard'} },
+  { path: 'search', component: AchSearchComponent, data: {title: 'ACH-Search'} },
+  { path: 'list', component: AchListComponent, data: {title: 'ACH-List'} }
 ];
 
 
