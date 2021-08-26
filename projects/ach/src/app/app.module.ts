@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
+import { AuthService } from './auth-service';
 import { MaterialModule } from './material-module';
 import { AchModule } from './pages/ach-home.module';
 
@@ -19,7 +20,7 @@ import { AchModule } from './pages/ach-home.module';
     AchModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

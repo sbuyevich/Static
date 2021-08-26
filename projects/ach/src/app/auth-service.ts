@@ -4,8 +4,6 @@ import { AccountInfo, InteractionStatus } from '@azure/msal-browser';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { environment } from './../environments/environment';
-
 export class User {
     name?: string;
     username?: string;
@@ -20,7 +18,7 @@ type IdTokenClaims = {
 @Injectable({  providedIn: 'root' })
 
 export class AuthService implements OnDestroy {        
-    user?: User | null;
+    user?: User;
     loginDisplay = false;
     private readonly _destroying$ = new Subject<void>();
 
@@ -29,29 +27,12 @@ export class AuthService implements OnDestroy {
 
     constructor(
         private broadcastService: MsalBroadcastService,
-        private msalService: MsalService) {        
-        this.broadcastService.inProgress$
-            .pipe(
-                filter((status: InteractionStatus) => status === InteractionStatus.None),
-                takeUntil(this._destroying$)
-            )
-            .subscribe(() => {
-                this.setLoginDisplay();
-            })
+        private msalService: MsalService) {    
+        console.log("broadcastService");         
+        this.setLoginDisplay();        
     }
 
-    login() {
-        this.msalService.loginRedirect();        
-    }
-
-    logout() {
-        this.msalService.logoutRedirect({
-            postLogoutRedirectUri: environment.shellURL
-        });
-    }
-
-    setLoginDisplay() {       
-        this.user = null;
+    setLoginDisplay() {              
         this.loginDisplay = this.msalService.instance.getAllAccounts().length > 0;
         if (this.loginDisplay) {
             this.user = new User();
@@ -64,7 +45,9 @@ export class AuthService implements OnDestroy {
         this.dataSource.next(this.user as User);
     }
 
-    hasRole(role: string){  
+    hasRole(role: string){        
+        console.log(role);
+        console.log(this.user);
         return this.user != null &&  this.user.roles != null &&
         this.user.roles.filter((r) => r.includes(role)).length > 0;
     }

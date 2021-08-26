@@ -1,7 +1,13 @@
 <app-ach-nav></app-ach-nav>
 DASHBOARD
 
+Is Admin? {{isAdmin}}
 <section>
   <button mat-button (click)="apiCallGet()">API GET</button>
   <button mat-button (click)="apiCallSet()">API SET</button>
+</section>
+<section>
+ <div style="float:left">
+    API response:{{apiResponse}}   
+</div>
 </section>
