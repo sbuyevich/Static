@@ -22,12 +22,7 @@ module.exports = {
     }
   },
   plugins: [
-    new ModuleFederationPlugin({
-
-      // For hosts (please adjust)
-      remotes: {
-        // "mfe1": "mfe1@http://localhost:3000/remoteEntry.js",
-      },
+    new ModuleFederationPlugin({    
 
       shared: {
         "@angular/core": { requiredVersion: '12.0.0' },

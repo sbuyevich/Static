@@ -18,6 +18,27 @@ export const APP_ROUTES: Routes = [
       .then(m => m.AchModule) 
     },      
     canActivate: [MsalGuard]
-  }  
+  },
+  {
+    path: 'react',
+    component: WebComponentWrapper,
+    data: {
+      remoteEntry: 'http://localhost:4444/remoteEntry.js',
+      remoteName: 'mfe4',
+      exposedModule: './web-components',
+      elementName: 'mft-wc-wrapper'
+    } as WebComponentWrapperOptions
+  },   
+  {
+    path: 'mf',
+    component: WebComponentWrapper,
+    data: {
+      remoteEntry: 'https://witty-wave-0a695f710.azurestaticapps.net/remoteEntry.js',
+      remoteName: 'react',
+      exposedModule: './web-components',
+      elementName: 'react-element'
+    } as WebComponentWrapperOptions
+  },   
+    
 ];
 

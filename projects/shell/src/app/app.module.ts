@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { createCustomElement } from '@angular/elements';
 import {
   MsalModule,
   MsalService,
@@ -56,6 +57,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HeaderComponent,    
     FooterComponent,
     AsideComponent
+    
   ],
   imports: [
     BrowserModule,    
@@ -72,7 +74,16 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   providers: [ 
     MsalGuard 
   ], 
-  bootstrap: [AppComponent, MsalRedirectComponent]
+  bootstrap: [AppComponent, MsalRedirectComponent]  
 })
 
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap() {
+    const ce = createCustomElement(AppComponent, {injector: this.injector});
+    customElements.define('react-element', ce);
+  }
+
+}
