@@ -1,7 +1,7 @@
 import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { createCustomElement } from '@angular/elements';
+
 import {
   MsalModule,
   MsalService,
