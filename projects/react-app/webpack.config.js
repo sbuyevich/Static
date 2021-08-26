@@ -7,7 +7,7 @@ module.exports = options => {
     output: {
       filename: 'bundle.js',
       publicPath: "http://localhost:4444/",
-      uniqueName: "mfe4"
+      uniqueName: "react_app"
     },
     module: {
       rules: [
@@ -28,10 +28,8 @@ module.exports = options => {
     },
     plugins: [
       new ModuleFederationPlugin({
-        
-          // For remotes (please adjust)
-          name: "mfe4",
-          library: { type: "var", name: "mfe4" },
+          name: "react-app",
+          library: { type: "var", name: "react_app" },
           filename: "remoteEntry.js",
           exposes: {
               './web-components': './app.js',

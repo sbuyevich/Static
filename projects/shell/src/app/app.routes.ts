@@ -10,8 +10,7 @@ export const APP_ROUTES: Routes = [
   {
     path: 'ach',
     loadChildren: () => {
-      return loadRemoteModule({
-        //remoteEntry: URL,
+      return loadRemoteModule({        
         remoteName: 'ach',
         exposedModule: './Module'
       })
@@ -22,11 +21,10 @@ export const APP_ROUTES: Routes = [
   {
     path: 'react',
     component: WebComponentWrapper,
-    data: {
-      remoteEntry: 'http://localhost:4444/remoteEntry.js',
-      remoteName: 'mfe4',
+    data: {      
+      remoteName: 'react_app',
       exposedModule: './web-components',
-      elementName: 'mft-wc-wrapper'
+      elementName: 'react-app'
     } as WebComponentWrapperOptions
   },   
   {
