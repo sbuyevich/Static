@@ -39,6 +39,8 @@ const publicClientApp = new PublicClientApplication({
     AppComponent,    
     HeaderComponent,    
     FooterComponent,
+    AsideComponent
+  ],
   imports: [
     BrowserModule,    
     RouterModule.forRoot(APP_ROUTES),
