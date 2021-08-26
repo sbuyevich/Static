@@ -40,17 +40,6 @@ const publicClientApp = new PublicClientApplication({
     storeAuthStateInCookie: isIE,
   }
 });
-
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication({
-    auth: {
-      clientId: '20401f56-be3e-49c8-9a01-24151837dedb',
-      authority: 'https://login.microsoftonline.com/82e1281a-0c2a-42ab-8394-0a68a0be66d0', 
-      redirectUri: 'http://localhost:5555'
-    }
-  });
-}
-
 @NgModule({
   declarations: [
     AppComponent,    
@@ -77,13 +66,5 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   bootstrap: [AppComponent, MsalRedirectComponent]  
 })
 
-export class AppModule {
-  constructor(private injector: Injector) {
-  }
-
-  ngDoBootstrap() {
-    const ce = createCustomElement(AppComponent, {injector: this.injector});
-    customElements.define('react-element', ce);
-  }
-
+export class AppModule {  
 }

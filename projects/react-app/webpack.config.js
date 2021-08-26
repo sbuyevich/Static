@@ -7,7 +7,7 @@ module.exports = options => {
     output: {
       filename: 'bundle.js',
       publicPath: "http://localhost:4444/",
-      uniqueName: "react_app"
+      uniqueName: "react-app"
     },
     module: {
       rules: [
